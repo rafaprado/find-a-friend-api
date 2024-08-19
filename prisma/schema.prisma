@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  password_hash String
+  phone_number  String
+  address       String
+  cep           String
+  created_at    DateTime @default(now())
+  Pet           Pet[]
+
+  @@map("organizations")
+}
+
+enum PetSize {
+  SMALL  @map("Pequeno")
+  MEDIUM @map("Médio")
+  LARGE  @map("Grande")
+}
+
+enum PetEnergy {
+  LOW    @map("Baixa")
+  MEDIUM @map("Moderada")
+  HIGH   @map("Muita energia")
+}
+
+enum PetIndependency {
+  LOW    @map("Baixo")
+  MEDIUM @map("Médio")
+  HIGH   @map("Alto")
+}
+
+enum PetEnvironment {
+  SMALL  @map("Ambiente pequeno")
+  MEDIUM @map("Ambiente médio")
+  LARGE  @map("Ambiente amplo")
+}
+
+model Pet {
+  id                    String          @id @default(uuid())
+  name                  String
+  description           String
+  age                   Int
+  size                  PetSize
+  energy                PetEnergy
+  independency          PetIndependency
+  environment_size      PetEnvironment
+  cep                   String
+  adoption_requirements String?
+  created_at            DateTime        @default(now())
+  PetPicture            PetPicture[]
+  organization          Organization    @relation(fields: [organization_id], references: [id])
+  organization_id       String
+
+  @@map("pets")
+}
+
+model PetPicture {
+  id     String @id @default(uuid())
+  path   String
+  pet    Pet    @relation(fields: [pet_id], references: [id])
+  pet_id String
+
+  @@map("pets_pictures")
+}
