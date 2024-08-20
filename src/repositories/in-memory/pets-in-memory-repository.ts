@@ -45,13 +45,12 @@ export class PetsInMemoryRepository implements PetsRepository {
   ) {
     const pets = this.items.filter(
       (item) =>
-        item.cep === cep ||
         item.size === size ||
         item.energy === energy ||
         item.independency === independency ||
         item.environment_size === environment_size,
     )
 
-    return pets
+    return pets.filter((item) => item.cep === cep)
   }
 }

@@ -24,13 +24,13 @@ export class FetchPetsByFeatureUseCase {
     cep,
   }: FetchPetsByFeatureUseCaseRequest): Promise<FetchPetsByFeatureUseCaseReply> {
     const pets = await this.petsRepository.findManyByFeatures(
+      cep,
       size,
       energy,
       independency,
       environment_size,
-      cep,
     )
 
-    return pets
+    return { pets }
   }
 }

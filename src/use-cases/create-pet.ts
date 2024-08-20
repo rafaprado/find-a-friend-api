@@ -1,5 +1,7 @@
+import { OrganizationsRepository } from '@/repositories/organizations-repository'
 import { PetsRepository } from '@/repositories/pets-repository'
 import { $Enums, Pet } from '@prisma/client'
+import { InvalidParametersError } from './errors/Invalid-parameters-error'
 
 interface CreatePetUseCaseRequest {
   name: string
@@ -19,9 +21,20 @@ interface CreatePetUseCaseReply {
 }
 
 export class CreatePetUseCase {
-  constructor(private petsRepository: PetsRepository) {}
+  constructor(
+    private petsRepository: PetsRepository,
+    private organizationRepository: OrganizationsRepository,
+  ) {}
 
   async execute(data: CreatePetUseCaseRequest): Promise<CreatePetUseCaseReply> {
+    const organization = await this.organizationRepository.findById(
+      data.organizationId,
+    )
+
+    if (!organization) {
+      throw new InvalidParametersError()
+    }
+
     const pet = await this.petsRepository.create({
       name: data.name,
       description: data.description,
