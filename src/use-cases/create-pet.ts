@@ -1,7 +1,7 @@
 import { OrganizationsRepository } from '@/repositories/organizations-repository'
 import { PetsRepository } from '@/repositories/pets-repository'
 import { $Enums, Pet } from '@prisma/client'
-import { InvalidParametersError } from './errors/Invalid-parameters-error'
+import { InvalidParametersError } from './errors/invalid-parameters-error'
 
 interface CreatePetUseCaseRequest {
   name: string

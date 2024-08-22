@@ -8,7 +8,7 @@ describe('Create Pet Use Case', () => {
   it('Should create a pet', async () => {
     const petsRepository = new PetsInMemoryRepository()
     const organizationRepository = new OrganizationsInMemoryRepository()
-    const sut = new CreatePetUseCase(petsRepository)
+    const sut = new CreatePetUseCase(petsRepository, organizationRepository)
 
     const organization = await organizationRepository.create({
       name: 'Doe Org',
