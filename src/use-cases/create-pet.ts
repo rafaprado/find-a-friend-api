@@ -10,10 +10,10 @@ interface CreatePetUseCaseRequest {
   size: $Enums.PetSize
   energy: $Enums.PetEnergy
   independency: $Enums.PetIndependency
-  environmentSize: $Enums.PetEnvironment
-  adoptionRequirements: string | null
+  environment_size: $Enums.PetEnvironment
+  adoption_requirements?: string
   cep: string
-  organizationId: string
+  organization_id: string
 }
 
 interface CreatePetUseCaseReply {
@@ -28,7 +28,7 @@ export class CreatePetUseCase {
 
   async execute(data: CreatePetUseCaseRequest): Promise<CreatePetUseCaseReply> {
     const organization = await this.organizationRepository.findById(
-      data.organizationId,
+      data.organization_id,
     )
 
     if (!organization) {
@@ -43,9 +43,9 @@ export class CreatePetUseCase {
       size: data.size,
       energy: data.energy,
       independency: data.independency,
-      environment_size: data.environmentSize,
-      adoption_requirements: data.adoptionRequirements,
-      organization_id: data.organizationId,
+      environment_size: data.environment_size,
+      adoption_requirements: data.adoption_requirements,
+      organization_id: data.organization_id,
     })
 
     return { pet }

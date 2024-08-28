@@ -3,23 +3,51 @@ import { PetsRepository } from '../pets-repository'
 import { prisma } from '@/lib/prisma'
 
 export class PetsPrismaRepository implements PetsRepository {
-  create(data: Prisma.PetUncheckedCreateInput) {}
+  async create(data: Prisma.PetUncheckedCreateInput) {
+    const pet = await prisma.pet.create({
+      data
+    })
 
-  findManyByCep(cep: string): Promise<Pet[]> {
-    throw new Error('Method not implemented.')
+    return pet
   }
 
-  findById(id: string): Promise<Pet | null> {
-    throw new Error('Method not implemented.')
+  async findManyByCep(cep: string) {
+    const pets = await prisma.pet.findMany({
+      where: {
+        cep
+      }
+    })
+
+    return pets;
   }
 
-  findManyByFeatures(
+  async findById(id: string) {
+    const pet = await prisma.pet.findFirst({
+      where: {
+        id
+      }
+    });
+
+    return pet;
+  }
+
+  async findManyByFeatures(
     cep: string,
     size?: $Enums.PetSize,
     energy?: $Enums.PetEnergy,
     independency?: $Enums.PetIndependency,
     environment_size?: $Enums.PetEnvironment,
-  ): Promise<Pet[]> {
-    throw new Error('Method not implemented.')
+  ) {
+    const pets = await prisma.pet.findMany({
+      where: {
+        cep,
+        size,
+        energy,
+        independency,
+        environment_size
+      }
+    })
+
+    return pets;
   }
 }

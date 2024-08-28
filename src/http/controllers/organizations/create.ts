@@ -36,5 +36,5 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     phone_number: phone_number.replace(/(\()|(\))|(-)/g, ''),
   })
 
-  return reply.status(201).send({ organization })
+  return reply.status(201).send(organization)
 }

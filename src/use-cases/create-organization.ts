@@ -45,6 +45,6 @@ export class CreateOrganizationUseCase {
       phone_number,
     })
 
-    return { organization }
+    return {organization}
   }
 }

@@ -4,5 +4,5 @@ import { create } from './create'
 
 export async function organizationRoutes(app: FastifyInstance) {
   app.post('/authenticate', authenticate)
-  app.post('/create', create)
+  app.post('/', create)
 }
