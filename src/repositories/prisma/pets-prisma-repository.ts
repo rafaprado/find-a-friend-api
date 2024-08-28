@@ -11,11 +11,13 @@ export class PetsPrismaRepository implements PetsRepository {
     return pet
   }
 
-  async findManyByCep(cep: string) {
+  async findManyByCep(cep: string, page: number) {
     const pets = await prisma.pet.findMany({
       where: {
         cep
-      }
+      },
+      skip: (page - 1) * 20,
+      take: 20
     })
 
     return pets;

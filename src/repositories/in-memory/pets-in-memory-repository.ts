@@ -26,9 +26,9 @@ export class PetsInMemoryRepository implements PetsRepository {
     return pet
   }
 
-  async findManyByCep(cep: string) {
+  async findManyByCep(cep: string, page: number) {
     const pets = this.items.filter((item) => item.cep === cep)
-    return pets
+    return pets.slice((page - 20) * 20, page * 20 )
   }
 
   async findById(id: string) {

@@ -3,6 +3,7 @@ import { Pet } from '@prisma/client'
 
 interface FetchPetsByCityUseCaseRequest {
   cep: string
+  page: number
 }
 
 interface FetchPetsByCityUseCaseReply {
@@ -14,8 +15,9 @@ export class FetchPetsByCityUseCase {
 
   async execute({
     cep,
+    page
   }: FetchPetsByCityUseCaseRequest): Promise<FetchPetsByCityUseCaseReply> {
-    const pets = await this.petsRepository.findManyByCep(cep)
+    const pets = await this.petsRepository.findManyByCep(cep, page)
 
     return { pets }
   }

@@ -31,7 +31,7 @@ describe('Fetch Pets By City Use Case', () => {
       organization_id: 'organ-321',
     })
 
-    const { pets } = await sut.execute({ cep: '14770000' })
+    const { pets } = await sut.execute({ cep: '14770000', page: 0 })
 
     expect(pets).toHaveLength(2)
   })
