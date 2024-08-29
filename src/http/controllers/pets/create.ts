@@ -24,6 +24,7 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
   })
 
   const data = createPetBodySchema.parse(request.body)
+  data.cep = data.cep.replace("-", "");
   
   const petsRepository = new PetsPrismaRepository()
   const organizationRepository = new OrganizationsPrismaRepository()
