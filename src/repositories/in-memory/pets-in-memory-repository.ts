@@ -28,7 +28,7 @@ export class PetsInMemoryRepository implements PetsRepository {
 
   async findManyByCep(cep: string, page: number) {
     const pets = this.items.filter((item) => item.cep === cep)
-    return pets.slice((page - 20) * 20, page * 20 )
+    return pets.slice((page - 1) * 20, page * 20 )
   }
 
   async findById(id: string) {
@@ -38,6 +38,7 @@ export class PetsInMemoryRepository implements PetsRepository {
 
   async findManyByFeatures(
     cep: string,
+    page: number,
     size?: $Enums.PetSize,
     energy?: $Enums.PetEnergy,
     independency?: $Enums.PetIndependency,
@@ -51,6 +52,6 @@ export class PetsInMemoryRepository implements PetsRepository {
         item.environment_size === environment_size,
     )
 
-    return pets.filter((item) => item.cep === cep)
+    return pets.filter((item) => item.cep === cep).slice((page - 1) * 20, page * 20)
   }
 }

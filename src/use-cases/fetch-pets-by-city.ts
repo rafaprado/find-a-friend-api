@@ -19,6 +19,6 @@ export class FetchPetsByCityUseCase {
   }: FetchPetsByCityUseCaseRequest): Promise<FetchPetsByCityUseCaseReply> {
     const pets = await this.petsRepository.findManyByCep(cep, page)
 
-    return {pets}
+    return { pets }
   }
 }

@@ -18,7 +18,7 @@ export async function fetchByCity(request: FastifyRequest, reply: FastifyReply) 
   const petsRepository = new PetsPrismaRepository()
   const fetchPetsByCityUseCase = new FetchPetsByCityUseCase(petsRepository);
 
-  const {pets} = await fetchPetsByCityUseCase.execute({cep, page});
+  const { pets } = await fetchPetsByCityUseCase.execute({cep, page});
 
   return reply.status(200).send({pets})
 }

@@ -3,6 +3,7 @@ import { $Enums, Pet } from '@prisma/client'
 
 interface FetchPetsByFeatureUseCaseRequest {
   cep: string
+  page: number
   size?: $Enums.PetSize
   energy?: $Enums.PetEnergy
   independency?: $Enums.PetIndependency
@@ -18,6 +19,7 @@ export class FetchPetsByFeatureUseCase {
 
   async execute({
     size,
+    page,
     energy,
     independency,
     environment_size,
@@ -25,6 +27,7 @@ export class FetchPetsByFeatureUseCase {
   }: FetchPetsByFeatureUseCaseRequest): Promise<FetchPetsByFeatureUseCaseReply> {
     const pets = await this.petsRepository.findManyByFeatures(
       cep,
+      page,
       size,
       energy,
       independency,

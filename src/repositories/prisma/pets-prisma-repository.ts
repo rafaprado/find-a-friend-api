@@ -35,6 +35,7 @@ export class PetsPrismaRepository implements PetsRepository {
 
   async findManyByFeatures(
     cep: string,
+    page: number,
     size?: $Enums.PetSize,
     energy?: $Enums.PetEnergy,
     independency?: $Enums.PetIndependency,
@@ -47,7 +48,9 @@ export class PetsPrismaRepository implements PetsRepository {
         energy,
         independency,
         environment_size
-      }
+      },
+      skip: (page - 1) * 20,
+      take: 20
     })
 
     return pets;

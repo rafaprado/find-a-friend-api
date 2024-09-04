@@ -6,6 +6,7 @@ export interface PetsRepository {
   findById(id: string): Promise<Pet | null>
   findManyByFeatures(
     cep: string,
+    page: number,
     size?: $Enums.PetSize,
     energy?: $Enums.PetEnergy,
     independency?: $Enums.PetIndependency,
